@@ -9,6 +9,5 @@ int main(void) {
     }
 
     delete_application(app);
-
     return 0;
 }
