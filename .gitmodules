@@ -1,0 +1,3 @@
+[submodule "multiple-clients-server"]
+	path = multiple-clients-server
+	url = git@github.com:khadievedem/multiple-clients-server.git
