@@ -8,7 +8,7 @@ FLAGS=$(WARNING) $(STD)
 DEPS=src/main.c
 
 client: $(DEPS)
-	$(CC) $(FLAGS) $(DEPS) -o $@
+	$(CC) $(FLAGS) $(DEPS) -o $@.o
 
 .PHONY: isformatted
 isformatted: $(DEPS)
