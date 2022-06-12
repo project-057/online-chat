@@ -3,8 +3,10 @@ RM=rm -f
 CLANG-FORMAT=clang-format
 STD=-std=c89
 
+INCLUDE=-I./deps/nuklear_cross/
+
 WARNING=-Wall -Wextra -Werror
-FLAGS=$(WARNING) $(STD)
+FLAGS=$(WARNING) $(STD) $(INCLUDE)
 DEPS=src/main.c
 
 client: $(DEPS)
