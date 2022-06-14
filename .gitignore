@@ -1,7 +1,6 @@
 # Dependency folders
 client/deps/include/*.h
 client/deps/bin/*.a
-client/deps/nuklear_cross
 
 # vscode folder
 .vscode/
