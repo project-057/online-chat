@@ -10,3 +10,4 @@ typedef struct {
 
 RenderData* create_render_data();
 void delete_render_data(RenderData* rd);
+void add_message_to_box_buffer(RenderData* rd, char* message, int message_len);
