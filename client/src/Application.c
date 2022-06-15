@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <nuklear_cross.h>
 #include <nuklear.h>
+#include <string.h>
 
 #define RED_BOLD "\033[1;31m"
 #define DEFAULT "\033[0m"
@@ -97,11 +98,12 @@ void render(Application* app) {
 
         /* chat screen */
         if (app->application_state & AS_CHAT) {
-            float ratio[2] = {app->window_width*627/640*8/10, app->window_width*627/640*2/10 - 5};
             nk_layout_row_static(app->ctx, app->window_height - 40, app->window_width*627/640, 1);
             nk_edit_string(app->ctx, NK_EDIT_BOX, app->render_data->box_buffer, &app->render_data->box_buffer_len, MAX_MESSAGE_LIST_COUNT*MAX_MESSAGE_SIZE, nk_filter_default);
 
-            nk_layout_row(app->ctx, NK_STATIC, 25, 2, ratio);
+            float ratio[3] = {app->window_width*627/640*2/10 - 20, app->window_width*627/640*6/10, app->window_width*627/640*2/10 - 5};
+            nk_layout_row(app->ctx, NK_STATIC, 25, 3, ratio);
+            nk_label(app->ctx, app->nickname, NK_TEXT_LEFT);
             nk_flags active = nk_edit_string(app->ctx, NK_EDIT_FIELD, app->render_data->line_text, &app->render_data->line_text_len, MAX_MESSAGE_SIZE, nk_filter_default);
             if (nk_button_label(app->ctx, "Submit") || (active & NK_EDIT_COMMITED)) {
                 app->application_state |= AS_SUBMIT_BUTTON_CLICK;
