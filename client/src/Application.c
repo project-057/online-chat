@@ -6,6 +6,8 @@
 #include <nuklear_cross.h>
 #include <nuklear.h>
 #include <string.h>
+#include <sys/socket.h>
+#include <pthread.h>
 
 #define RED_BOLD "\033[1;31m"
 #define DEFAULT "\033[0m"
@@ -16,6 +18,8 @@ Application* create_application() {
     app->is_running = true;
     app->window_height = WINDOW_HEIGHT;
     app->window_width = WINDOW_WIDTH;
+    app->tdata = create_tdata(app->sockfd);
+    pthread_create(&app->client_read, NULL, recv_message, (void *)app->tdata);
 
     app->nkc_handle = malloc(sizeof(struct nkc));
     if (!nkc_init(app->nkc_handle, "Online chat by HSE student!!!", app->window_width, app->window_height, NKC_WIN_NORMAL)) {
@@ -34,6 +38,7 @@ void delete_application(Application* app) {
     free(app->nkc_handle);
     delete_message_list(app->message_list);
     delete_render_data(app->render_data);
+    free(app->tdata);
     free(app);
 }
 
@@ -44,6 +49,7 @@ static void process_button_click(Application* app) {
     add_message_to_box_buffer(app->render_data, app->nickname, app->nickname_size);
     add_message_to_box_buffer(app->render_data, "] ", 2);
     add_message_to_box_buffer(app->render_data, app->render_data->line_text, app->render_data->line_text_len);
+    send_message(app->sockfd, app->render_data->line_text);
     memset(app->render_data->line_text, 0, MAX_MESSAGE_SIZE);
     app->render_data->line_text_len = 0;
 }
@@ -71,6 +77,7 @@ void update(Application* app) {
         app->application_state -= AS_JOIN_BUTTON_CLICK;
         app->application_state -= AS_INIT;
         app->application_state |= AS_CHAT;
+        send_message(app->sockfd, app->room_number);
     }
 
     static int prev_message_list_count = 0;
@@ -79,6 +86,18 @@ void update(Application* app) {
         app->application_state -= AS_SUBMIT_BUTTON_CLICK;
         prev_message_list_count += 1;
     }
+
+    if (app->tdata->read) {
+        if (strcmp(app->tdata->buffer, "Enter room number: ") != 0) {
+            if (strcmp(app->tdata->buffer, "Enter your username: ") == 0) {
+                send_message(app->sockfd, app->nickname);
+            } else {
+                add_message_to_box_buffer(app->render_data, app->tdata->buffer, strlen(app->tdata->buffer));
+            }
+            app->tdata->read = 0;
+            memset(app->tdata->buffer, 0, BUFFER_SIZE);
+        }
+    } 
 }
 
 void render(Application* app) {

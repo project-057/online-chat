@@ -8,6 +8,7 @@
 #include <arpa/inet.h>
 #include <netdb.h>
 #include <netinet/in.h>
+#include <pthread.h>
 
 #include "Client.h"
 
@@ -36,4 +37,32 @@ int init_client() {
 	freeaddrinfo(servinfo);
 
     return sockfd;
+}
+
+void send_message(int sockfd, char *message) {
+	if (send(sockfd, message, strlen(message), 0) == 0) {
+			perror("send");
+	} 
+}
+
+void *recv_message(void *vargp) {
+	ThreadData* tdata = (ThreadData *)vargp;
+	while (1) {
+		if (recv(tdata->sockfd, tdata->buffer, BUFFER_SIZE, 0) == 0) {
+			perror("recv");
+			break;
+		} else {
+			tdata->read = 1;
+		}
+		sleep(1);
+	}
+	pthread_exit(NULL);	
+}
+
+ThreadData *create_tdata(int sockfd) {
+	ThreadData *tdata = malloc(sizeof *tdata);
+	tdata->buffer = calloc(BUFFER_SIZE, sizeof(char));
+	tdata->sockfd = sockfd;
+	tdata->read = 0;
+	return tdata;
 }

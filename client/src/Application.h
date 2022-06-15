@@ -2,9 +2,11 @@
 #include "ApplicationState.h"
 #include "MessageList.h"
 #include "RenderData.h"
+#include "Client.h"
 
 #include <stdbool.h>
 #include <nuklear_cross.h>
+#include <pthread.h>
 
 #define WINDOW_HEIGHT   480
 #define WINDOW_WIDTH    640
@@ -32,6 +34,10 @@ typedef struct {
     
     /* Network data */
     int sockfd;
+
+    /* Multi-threading data */
+    pthread_t client_read;
+    ThreadData *tdata;
 } Application;
 
 Application* create_application();
