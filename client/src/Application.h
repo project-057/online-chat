@@ -29,6 +29,9 @@ typedef struct {
     int room_number_size;
     char nickname[MAX_NICKNAME_SIZE];
     int nickname_size;
+    
+    /* Network data */
+    int sockfd;
 } Application;
 
 Application* create_application();

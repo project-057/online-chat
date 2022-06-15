@@ -1,5 +1,6 @@
 #include "Application.h"
 #include "ApplicationState.h"
+#include "Client.h"
 
 #include <stdlib.h>
 #include <nuklear_cross.h>
@@ -11,6 +12,7 @@
 
 Application* create_application() {
     Application* app = malloc(sizeof(Application));
+    app->sockfd = init_client();
     app->is_running = true;
     app->window_height = WINDOW_HEIGHT;
     app->window_width = WINDOW_WIDTH;

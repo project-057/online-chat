@@ -3,11 +3,11 @@ ECHO-DEFAULT=\033[39m
 CC=gcc
 RM=rm -f
 CLANG-FORMAT=clang-format
-STD=-std=c89
+STD=
 
 WARNING=-Wall -Wextra -Werror
 FLAGS=$(WARNING) $(STD) $(INCLUDE) -O2
-DEPS=src/main.c src/Application.c src/MessageList.c ./src/RenderData.c ./src/ApplicationState.c
+DEPS=src/main.c src/Application.c src/MessageList.c ./src/RenderData.c ./src/ApplicationState.c ./src/Client.c
 
 DEPS-INCLUDE=./deps/include/
 DEPS-BINARY=./deps/bin/
