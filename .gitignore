@@ -1,4 +1,8 @@
-#vscode folder
+# Dependency folders
+client/deps/include/*
+client/deps/bin/*.a
+
+# vscode folder
 .vscode/
 
 # Prerequisites
