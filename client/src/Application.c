@@ -38,6 +38,9 @@ void delete_application(Application* app) {
 static void process_button_click(Application* app) {
     add_message(app->message_list, app->render_data->line_text);
     app->render_data->line_text[app->render_data->line_text_len++] = '\n';
+    add_message_to_box_buffer(app->render_data, "[", 1);
+    add_message_to_box_buffer(app->render_data, app->nickname, app->nickname_size);
+    add_message_to_box_buffer(app->render_data, "] ", 2);
     add_message_to_box_buffer(app->render_data, app->render_data->line_text, app->render_data->line_text_len);
     memset(app->render_data->line_text, 0, MAX_MESSAGE_SIZE);
     app->render_data->line_text_len = 0;
