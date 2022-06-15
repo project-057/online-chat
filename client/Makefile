@@ -27,7 +27,7 @@ client: $(DEPS)
 
 .PHONY: deps
 deps: $(DEPS-SOURCES)
-	@echo "\033[92m[INFO] Compiling dependencies\033[39m"
+	@echo -e "\033[92m[INFO] Compiling dependencies\033[39m"
 	@cd ./deps/ && \
 	make
 
@@ -41,7 +41,7 @@ format: $(DEPS)
 
 .PHONY: clean
 clean:
-	@echo "$(ECHO-GREEN)[INFO] Removing client sources$(ECHO-DEFAULT)" && \
+	@echo -e "$(ECHO-GREEN)[INFO] Removing client sources$(ECHO-DEFAULT)" && \
 	$(RM) client.o && \
 	cd ./deps/ && \
 	make clear
