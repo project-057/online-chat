@@ -6,7 +6,7 @@ CLANG-FORMAT=clang-format
 STD=
 
 WARNING=-Wall -Wextra -Werror
-FLAGS=$(WARNING) $(STD) $(INCLUDE) -O2
+FLAGS=$(WARNING) $(STD) $(INCLUDE) -O2 -pthread
 DEPS=src/main.c src/Application.c src/MessageList.c ./src/RenderData.c ./src/ApplicationState.c ./src/Client.c
 
 DEPS-INCLUDE=./deps/include/
