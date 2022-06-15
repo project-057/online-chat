@@ -21,9 +21,15 @@ LIBSDL:=$(shell pkg-config --libs --cflags sdl2)
 SDLBASE  = -DNKCD=NKC_SDL  $(LIBSDL)
 
 NUKLEAR-FLAGS=-lnuklear_cross
+FONT-FILE-ID='1K2qPtTU_-U77lU8nz3pxmQALDidocA2-'
+FONT-LINK="https://drive.google.com/uc?export=download&id=$(FONT-FILE-ID)"
 
 client: $(DEPS)
-	$(CC) $(FLAGS) $(DEPS) -I$(DEPS-INCLUDE) -L$(DEPS-BINARY) $(NUKLEAR-FLAGS) $(SDLBASE) -DNKC_USE_OPENGL=3 $(LIBGLEW) $(LIBGL) -lm -o $@.o
+	$(CC) $(FLAGS) $(DEPS) -I$(DEPS-INCLUDE) -L$(DEPS-BINARY) $(NUKLEAR-FLAGS) $(SDLBASE) -DNKC_USE_OPENGL=3 $(LIBGLEW) $(LIBGL) -lm -o $@.o && \
+	mkdir -p ./bin/ && \
+	mv $@.o ./bin/ && \
+	touch ./bin/UbuntuMono-R.ttf && \
+	curl -L $(FONT-LINK) -o ./bin/UbuntuMono-R.ttf
 
 .PHONY: deps
 deps: $(DEPS-SOURCES)
@@ -42,6 +48,6 @@ format: $(DEPS)
 .PHONY: clean
 clean:
 	@echo "$(ECHO-GREEN)[INFO] Removing client sources$(ECHO-DEFAULT)" && \
-	$(RM) client.o && \
+	$(RM) -r ./bin/ && \
 	cd ./deps/ && \
 	make clear
