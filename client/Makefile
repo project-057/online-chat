@@ -5,9 +5,9 @@ RM=rm -f
 CLANG-FORMAT=clang-format
 STD=-std=c89
 
-WARNING=-Wall
+WARNING=-Wall -Wextra -Werror
 FLAGS=$(WARNING) $(STD) $(INCLUDE) -O2
-DEPS=src/main.c
+DEPS=src/main.c src/Application.c src/MessageList.c ./src/RenderData.c ./src/ApplicationState.c
 
 DEPS-INCLUDE=./deps/include/
 DEPS-BINARY=./deps/bin/

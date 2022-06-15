@@ -20,6 +20,9 @@ all: $(NUKLEAR+)
 	echo "$(ECHO-GREEN)[INFO] [1/$(NUKLEAR-STEP-COUNT)] Zipping static library$(ECHO-DEFAULT)" && \
 	ar rcs ../bin/libnuklear_cross.a nuklear_cross.o && \
 	cp nuklear_cross.h ../include/ && \
+	cp nuklear.h ../include/ && \
+	cp -r nkc_frontend ../include/ && \
+	cp -r nuklear_drivers ../include/ && \
 	echo "$(ECHO-GREEN)[INFO] [2/$(NUKLEAR-STEP-COUNT)] Restore submodule repository$(ECHO-DEFAULT)" && \
 	git restore . && \
 	echo "$(ECHO-GREEN)[INFO] [3/$(NUKLEAR-STEP-COUNT)] Delete binary from submodule$(ECHO-DEFAULT)" &&\
