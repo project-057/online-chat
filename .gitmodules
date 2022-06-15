@@ -1,3 +1,6 @@
 [submodule "multiple-clients-server"]
 	path = multiple-clients-server
 	url = git@github.com:khadievedem/multiple-clients-server.git
+[submodule "client/deps/nuklear_cross"]
+	path = client/deps/nuklear_cross
+	url = git@github.com:DeXP/nuklear_cross.git

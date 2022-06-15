@@ -1,8 +1,13 @@
-#include <stdio.h>
+#include "Application.h"
 
 int main(void) {
-    
-    puts("Online chat speedrun yoohooo!!!\n");
+    Application* app = create_application();
 
+    while(app->is_running) {
+        update(app);
+        render(app);
+    }
+
+    delete_application(app);
     return 0;
 }
