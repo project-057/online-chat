@@ -1,6 +1,9 @@
+# binary folder
+client/bin/*
+
 # Dependency folders
 client/deps/include/*
-client/deps/bin/*.a
+client/deps/bin/*
 
 # vscode folder
 .vscode/
