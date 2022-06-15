@@ -8,6 +8,8 @@
 
 #define RED_BOLD "\033[1;31m"
 #define DEFAULT "\033[0m"
+#define FONT_SIZE 20
+#define EDIT_BOX_SIZE FONT_SIZE+17
 
 Application* create_application() {
     Application* app = malloc(sizeof(Application));
@@ -20,6 +22,8 @@ Application* create_application() {
         puts(RED_BOLD"[ERROR]"DEFAULT" failed to init nuklear app\n");
         return NULL;
     }
+    struct nk_user_font* font = nkc_load_font_file(app->nkc_handle, "UbuntuMono-R.ttf", FONT_SIZE, NULL);
+    nkc_style_set_font(app->nkc_handle, font);
     app->application_state = AS_INIT;
 
     app->render_data = create_render_data();
@@ -85,7 +89,7 @@ void render(Application* app) {
             nk_layout_space_push(app->ctx, nk_rect(0, 0, app->window_width, app->window_height/2));
             nk_layout_space_end(app->ctx);
             float ratio[2] = { app->window_width * 2 / 10, app->window_width * 8 / 10 };
-            nk_layout_row(app->ctx, NK_STATIC, 30, 2, ratio);
+            nk_layout_row(app->ctx, NK_STATIC, EDIT_BOX_SIZE, 2, ratio);
             nk_label(app->ctx, "Room number:", NK_LEFT);
             nk_flags active1 = nk_edit_string(app->ctx, NK_EDIT_FIELD, app->room_number, &app->room_number_size, MAX_ROOM_NUMBER_SIZE, nk_filter_decimal);
             nk_label(app->ctx, "Nickname:", NK_LEFT);
@@ -98,11 +102,11 @@ void render(Application* app) {
 
         /* chat screen */
         if (app->application_state & AS_CHAT) {
-            nk_layout_row_static(app->ctx, app->window_height - 40, app->window_width*627/640, 1);
+            nk_layout_row_static(app->ctx, app->window_height - (EDIT_BOX_SIZE) - 10, app->window_width*627/640, 1);
             nk_edit_string(app->ctx, NK_EDIT_BOX, app->render_data->box_buffer, &app->render_data->box_buffer_len, MAX_MESSAGE_LIST_COUNT*MAX_MESSAGE_SIZE, nk_filter_default);
 
             float ratio[3] = {app->window_width*627/640*2/10 - 20, app->window_width*627/640*6/10, app->window_width*627/640*2/10 - 5};
-            nk_layout_row(app->ctx, NK_STATIC, 25, 3, ratio);
+            nk_layout_row(app->ctx, NK_STATIC, EDIT_BOX_SIZE, 3, ratio);
             nk_label(app->ctx, app->nickname, NK_TEXT_LEFT);
             nk_flags active = nk_edit_string(app->ctx, NK_EDIT_FIELD, app->render_data->line_text, &app->render_data->line_text_len, MAX_MESSAGE_SIZE, nk_filter_default);
             if (nk_button_label(app->ctx, "Submit") || (active & NK_EDIT_COMMITED)) {
