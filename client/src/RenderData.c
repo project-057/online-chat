@@ -14,3 +14,8 @@ RenderData* create_render_data() {
 void delete_render_data(RenderData* rd) {
     free(rd);
 }
+
+void add_message_to_box_buffer(RenderData* rd, char* message, int message_len) {
+    strcpy(rd->box_buffer + rd->box_buffer_len, message);
+    rd->box_buffer_len += message_len;
+}
