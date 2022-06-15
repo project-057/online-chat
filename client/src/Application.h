@@ -8,7 +8,7 @@
 
 #define WINDOW_HEIGHT   480
 #define WINDOW_WIDTH    640
-#define MAX_ROOM_NUMBER_SIZE 4
+#define MAX_ROOM_NUMBER_SIZE 19
 #define MAX_NICKNAME_SIZE 16
 
 typedef struct {
