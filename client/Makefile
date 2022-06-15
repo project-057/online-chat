@@ -21,8 +21,7 @@ LIBSDL:=$(shell pkg-config --libs --cflags sdl2)
 SDLBASE  = -DNKCD=NKC_SDL  $(LIBSDL)
 
 NUKLEAR-FLAGS=-lnuklear_cross
-FONT-FILE-ID='1K2qPtTU_-U77lU8nz3pxmQALDidocA2-'
-FONT-LINK="https://drive.google.com/uc?export=download&id=$(FONT-FILE-ID)"
+FONT-LINK="https://drive.google.com/uc?export=download&id=1K2qPtTU_-U77lU8nz3pxmQALDidocA2-"
 
 client: $(DEPS)
 	$(CC) $(FLAGS) $(DEPS) -I$(DEPS-INCLUDE) -L$(DEPS-BINARY) $(NUKLEAR-FLAGS) $(SDLBASE) -DNKC_USE_OPENGL=3 $(LIBGLEW) $(LIBGL) -lm -o $@.o && \
@@ -51,4 +50,3 @@ clean:
 	$(RM) -r ./bin/ && \
 	cd ./deps/ && \
 	make clear
-  
