@@ -1,5 +1,5 @@
 # Dependency folders
-client/deps/include/*.h
+client/deps/include/*
 client/deps/bin/*.a
 
 # vscode folder
