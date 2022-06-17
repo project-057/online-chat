@@ -29,6 +29,17 @@ This is an online-chat made for projects in the "Programming in C" course at the
 
 Client sends data on remote server, server processes it and sends user to the corresponding room. All data is processed on the server. Sockets, pthreads and other indespencible constituents.
 
+Log-in page:
+
+![image](https://user-images.githubusercontent.com/89610640/174273748-04a6ceab-e399-428c-8881-5eaee4e754bd.png)
+
+Chat:
+
+![image](https://user-images.githubusercontent.com/89610640/174273784-561276fb-0c63-485f-b657-c49f425d0825.png)
+
+![image](https://user-images.githubusercontent.com/89610640/174276116-6180a2aa-ad65-4655-8334-4ed63da927b1.png)
+
+
 
 ## :desktop_computer: :black_medium_small_square: What we had learnt :black_medium_small_square: :desktop_computer:
 
